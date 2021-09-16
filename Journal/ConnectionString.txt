@@ -1,0 +1,1 @@
+﻿Data Source=KC-WDS\SQLEXPRESS;Initial Catalog=Inbox;Persist Security Info=True;User ID=Court;Password=p@$$w0rd1

@@ -1,0 +1,122 @@
+﻿<Window x:Class="Journal.FullInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Journal"
+        xmlns:src="clr-namespace:Journal.src"
+        mc:Ignorable="d"
+        Title="დეტალური ინფორმაცია" 
+        Height="768" 
+        Width="1024" 
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="ToolWindow"
+        Loaded="Window_Loaded"
+        >
+    <Window.Resources>
+        <src:DateConverter x:Key="dtcv"></src:DateConverter>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button 
+                Style="{StaticResource print}" 
+                Margin="10" 
+                x:Name="printBtn"
+                Click="printBtn_Click"
+                >
+                <Button.ToolTip>
+                    <TextBlock Text="დოკუმენტის ბეჭვდა" />
+                </Button.ToolTip>
+            </Button>
+        </StackPanel>
+        <FlowDocumentReader Grid.Row="1" x:Name="parentDocContainer">
+            <FlowDocument ColumnWidth="1024">
+                <Paragraph 
+                    BorderBrush="{x:Null}"
+                    BorderThickness="0"
+                    FontSize="20"  
+                    TextAlignment="Center" 
+                    FontFamily="/Journal;component/Fonts/#BPG SSP Caps"
+                    Margin="0 0 0 50"
+                    
+                    >
+                    ინფორმაცია შემოსული ფოსტის გატარების შესახებ
+                </Paragraph>
+                <Paragraph >
+                    <Run Text="მიმღები: " FontWeight="DemiBold" FontFamily="/Journal;component/Fonts/#BPG SSP Caps" />
+                    <Run Text="{Binding Source={x:Static local:FullInfo.Jr},Path=RC.Name}" FontFamily="Sylfaen"  />
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="კოლეგია: " FontWeight="DemiBold" FontFamily="/Journal;component/Fonts/#BPG SSP Caps"></Run>
+                    <Run Text="{Binding Source={x:Static local:FullInfo.Jr},Path=OwnBoard.Name}" FontFamily="Sylfaen" />
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="მიღების თარიღი: " FontWeight="DemiBold" FontFamily="/Journal;component/Fonts/#BPG SSP Caps"/>
+                    <Run Text="{Binding Source={x:Static local:FullInfo.Jr},Path=DateOfRec,Converter={StaticResource dtcv}}" FontFamily="Sylfaen" />
+                </Paragraph>
+                <Paragraph></Paragraph>
+                <Table 
+                   
+                    >
+                    <Table.Columns>
+                        <TableColumn Width="250" />
+                        <TableColumn Width="350" />
+                        <TableColumn Width="130" />
+                        <TableColumn Width="100" />
+                    </Table.Columns>                    
+                    <TableRowGroup>
+                        
+                        <TableRow FontWeight="DemiBold">
+                            <TableCell Padding="10 5">
+                                <Paragraph 
+                                    TextAlignment="Left"
+                                    FontFamily="/Journal;component/Fonts/#BPG SSP Caps">ავტორი</Paragraph>
+                            </TableCell>
+                            <TableCell Padding="10 5">
+                                <Paragraph 
+                                    TextAlignment="Left"
+                                    FontFamily="/Journal;component/Fonts/#BPG SSP Caps">დასახელება</Paragraph>
+                            </TableCell>
+                            <TableCell Padding="10 5">
+                                <Paragraph 
+                                    TextAlignment="Left"
+                                    FontFamily="/Journal;component/Fonts/#BPG SSP Caps">ადრესატი</Paragraph>
+                            </TableCell>
+                            <TableCell Padding="10 5">
+                                <Paragraph 
+                                    TextAlignment="Left"
+                                    FontFamily="/Journal;component/Fonts/#BPG SSP Caps">შენიშვნა</Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell Padding="10 5">
+                                <Paragraph TextAlignment="Left">
+                                    <Run Text="{Binding Source={x:Static local:FullInfo.Jr},Path=Author}" FontFamily="/Journal;component/Fonts/#BPG SSP" />
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell Padding="10 5">
+                                <Paragraph TextAlignment="Left">
+                                    <Run Text="{Binding Source={x:Static local:FullInfo.Jr},Path=Name}" FontFamily="/Journal;component/Fonts/#BPG SSP" />
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell Padding="10 5">
+                                <Paragraph TextAlignment="Left">
+                                    <Run Text="{Binding Source={x:Static local:FullInfo.Jr},Path=OwnAdressee.Name}" FontFamily="/Journal;component/Fonts/#BPG SSP" />
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell Padding="10 5">
+                                <Paragraph TextAlignment="Left">
+                                    <Run Text="{Binding Source={x:Static local:FullInfo.Jr},Path=Note}" FontFamily="/Journal;component/Fonts/#BPG SSP" />
+                                </Paragraph>
+                            </TableCell>
+                        </TableRow>
+                    </TableRowGroup>
+                </Table>
+            </FlowDocument>
+        </FlowDocumentReader>
+    </Grid>
+</Window>
